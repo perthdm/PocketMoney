@@ -33,7 +33,7 @@ function Ledger() {
         data[i].total =
           i == 0
             ? data[i].income
-            : parseInt(data[i - 1].total) + data[i].income;
+            : parseInt(data[i - 1].total) + parseInt(data[i].income);
       } else if (data[i].expenses) {
         data[i].total =
           i == 0 ? data[i].expenses : data[i - 1].total - data[i].expenses;
@@ -50,9 +50,13 @@ function Ledger() {
   };
 
   const handleSubmit = () => {
-    console.log("SUBMIT");
     let obj = { name };
+    let size = data.length;
     type ? (obj.income = cost) : (obj.expenses = cost);
+    obj.total = type
+      ? parseInt(data[size - 1].total) + parseInt(cost)
+      : data[size - 1].total - cost;
+    obj.created = new Date().toLocaleDateString();
     setData([...data, obj]);
     resetData();
   };
@@ -84,14 +88,17 @@ function Ledger() {
               </CardHeader>
               <CardBody>
                 <Table dataSource={data} pagination={false}>
-                  <Column title="วันที่" key="created" />
+                  <Column title="วันที่" dataIndex="created" key="created" />
                   <Column title="รายการ" dataIndex="name" key="name" />
                   <Column
                     title="รายรับ (บาท)"
+                    dataIndex="income"
                     key="income"
-                    render={(record) =>
-                      record.income ? (
-                        <Tag color={"green"}>{record.income}</Tag>
+                    render={(income) =>
+                      income ? (
+                        <Tag color="green">
+                          {parseInt(income).toLocaleString()}
+                        </Tag>
                       ) : (
                         "-"
                       )
@@ -99,16 +106,24 @@ function Ledger() {
                   />
                   <Column
                     title="รายจ่าย (บาท)"
+                    dataIndex="expenses"
                     key="expenses"
-                    render={(record) =>
-                      record.expenses ? (
-                        <Tag color={"red"}>{record.expenses}</Tag>
+                    render={(expenses) =>
+                      expenses ? (
+                        <Tag color="red">
+                          {parseInt(expenses).toLocaleString()}
+                        </Tag>
                       ) : (
                         "-"
                       )
                     }
                   />
-                  <Column title="สรุป (บาท)" dataIndex="total" key="total" />
+                  <Column
+                    title="สรุป (บาท)"
+                    dataIndex="total"
+                    key="total"
+                    render={(total) => <div> {total}</div>}
+                  />
 
                   {/* <Column
                     title="แก้ไขล่าสุด"
