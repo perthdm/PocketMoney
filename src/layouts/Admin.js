@@ -1,8 +1,7 @@
-
-import React from "react";
+import React, { useEffect, useRef, useState } from "react";
 // javascript plugin used to create scrollbars on windows
 import PerfectScrollbar from "perfect-scrollbar";
-import { Route, Switch, useLocation } from "react-router-dom";
+import { Route, Switch, useLocation, Redirect } from "react-router-dom";
 
 import DemoNavbar from "components/Navbars/DemoNavbar.js";
 import Footer from "components/Footer/Footer.js";
@@ -11,14 +10,14 @@ import FixedPlugin from "components/FixedPlugin/FixedPlugin.js";
 
 import routes from "routes.js";
 
-var ps;
-
 function Dashboard(props) {
-  const [backgroundColor, setBackgroundColor] = React.useState("black");
-  const [activeColor, setActiveColor] = React.useState("info");
-  const mainPanel = React.useRef();
+  const [backgroundColor, setBackgroundColor] = useState("black");
+  const [activeColor, setActiveColor] = useState("info");
+  const mainPanel = useRef();
   const location = useLocation();
-  React.useEffect(() => {
+  var ps;
+
+  useEffect(() => {
     if (navigator.platform.indexOf("Win") > -1) {
       ps = new PerfectScrollbar(mainPanel.current);
       document.body.classList.toggle("perfect-scrollbar-on");
@@ -30,25 +29,28 @@ function Dashboard(props) {
       }
     };
   });
-  React.useEffect(() => {
+
+  useEffect(() => {
     mainPanel.current.scrollTop = 0;
     document.scrollingElement.scrollTop = 0;
   }, [location]);
+
   const handleActiveClick = (color) => {
     setActiveColor(color);
   };
-  const handleBgClick = (color) => {
-    console.log(color);
 
+  const handleBgClick = (color) => {
     setBackgroundColor(color);
   };
+
   return (
     <div className="wrapper">
       <Sidebar
         {...props}
         routes={routes}
         bgColor={backgroundColor}
-        activeColor={activeColor}
+        // activeColor={activeColor}
+        activeColor={"info"}
       />
       <div className="main-panel" ref={mainPanel}>
         <DemoNavbar {...props} />
@@ -62,6 +64,7 @@ function Dashboard(props) {
               />
             );
           })}
+          <Redirect from="/admin" to="/admin/dashboard" />
         </Switch>
         <Footer fluid />
       </div>

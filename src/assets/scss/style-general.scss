@@ -1,0 +1,136 @@
+$lx: 1200px;
+$lg: 992px;
+$md: 768px;
+$xs: 576px;
+
+.container-login {
+  width: 100%;
+  height: 100vh;
+}
+
+.grid-login {
+  background-color: #fee9ce;
+  height: 100%;
+}
+
+.card-login {
+  width: 1300px;
+  height: 80%;
+  border-radius: 15px;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+}
+
+.detail-side {
+  text-align: center;
+  padding: 6.5rem 8rem 6.5rem 8rem;
+}
+
+.btn-pocket {
+  width: 80%;
+  border-radius: 12px;
+  height: 50px;
+  margin-top: 60px;
+  background-color: #3cc3be;
+  border: 1px solid #3cc3be;
+  color: white;
+  font-size: 18px;
+  font-weight: 600;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+}
+
+.btn-pocket:hover {
+  background-color: #41b7b2;
+  border: 1px solid #41b7b2;
+  color: white;
+}
+
+#triangle-bottomleft {
+  width: 0;
+  height: 0;
+  border-bottom: 100px solid red;
+  border-right: 100px solid transparent;
+}
+
+#float-label {
+  display: flex;
+  flex-direction: column;
+  min-width: 350px;
+  position: relative;
+  margin-top: 25px;
+}
+
+#float-label input {
+  width: 100%;
+  height: 65px;
+  padding: 16px 16px 0 10px;
+  outline: 0;
+  border: 0px;
+  border-bottom: 2px solid #a7e3e1;
+  border-radius: 4px;
+  background: transparent;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 16px;
+}
+
+#float-label label {
+  font-size: 16px;
+  font-family: Arial, Helvetica, sans-serif;
+  padding: 0 12px;
+  color: #3cc3be;
+  pointer-events: none;
+  position: absolute;
+  transform: translate(0, 26px) scale(1);
+  transform-origin: top left;
+  transition: all 0.2s ease-out;
+}
+
+#float-label:focus-within label {
+  transform: translate(0, 12px) scale(0.75);
+}
+
+#float-label:focus-within input {
+  border-color: #3cc3be;
+}
+
+#float-label .Active {
+  transform: translate(0, 12px) scale(0.75);
+}
+
+.card-login > .ant-card-body {
+  height: 100%;
+  padding: 0px;
+}
+
+.ant-card-bordered {
+  border: 0px;
+}
+
+@media (max-width: $lg) {
+  .card-login {
+    width: 700px;
+  }
+}
+
+@media (max-width: $md) {
+  .card-login {
+    width: 500px;
+  }
+}
+
+@media (max-width: $xs) {
+  .card-login {
+    width: 350px;
+  }
+
+  .detail-side {
+    padding: 2.5rem 0.5rem 2.5rem 0.5rem;
+  }
+}
+
+.hero {
+  display: block;
+  box-sizing: border-box;
+  height: 500px;
+  background-color: #5050ee;
+  clip-path: ellipse(85% 100% at 50% 0%);
+}

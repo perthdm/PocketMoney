@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Card, CardHeader, CardBody, CardTitle, Row, Col } from "reactstrap";
 import { Table, Tag, Space, Button, Modal, Input, Radio } from "antd";
 import { DeleteOutlined, SearchOutlined } from "@ant-design/icons";
+import Swal from "sweetalert2";
 
 function Ledger() {
   const { Column } = Table;
@@ -43,10 +44,19 @@ function Ledger() {
 
   const handleDelete = (id) => {
     console.log("DETA ID ==> ", id);
-  };
-
-  const handleView = (record) => {
-    console.log(record);
+    Swal.fire({
+      title: "Are you sure?",
+      text: "You won't be able to revert this!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#28a745",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, delete it!",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        Swal.fire("Deleted!", "Your file has been deleted.", "success");
+      }
+    });
   };
 
   const handleSubmit = () => {
@@ -125,31 +135,18 @@ function Ledger() {
                     render={(total) => <div> {total}</div>}
                   />
 
-                  {/* <Column
-                    title="แก้ไขล่าสุด"
-                    key="updated"
-                    render={(record) => formatDateTime(record.updated)}
-                  /> */}
-                  {/* <Column
+                  <Column
                     title="เครื่องมือ"
                     key="action"
                     render={(record) => (
-                      <Space size="middle">
-                        <Button
-                          //   shape="circle"
-                          icon={<SearchOutlined />}
-                          onClick={() => handleView(record)}
-                        />
-                        <Button
-                          type="primary"
-                          //   shape="circle"
-                          danger
-                          icon={<DeleteOutlined />}
-                          onClick={() => handleDelete(record.id)}
-                        />
-                      </Space>
+                      <Button
+                        type="primary"
+                        danger
+                        icon={<DeleteOutlined className="antd-fixed-icon" />}
+                        onClick={() => handleDelete(record.id)}
+                      />
                     )}
-                  /> */}
+                  />
                 </Table>
               </CardBody>
             </Card>
